@@ -1,6 +1,5 @@
 # MLflow App: Dogs and Cat classification
 
-# About project
 This project uses MLflow to train and deploy a machine learning model that can classify images of dogs and cats. The model is built using a convolutional neural network (CNN) and is trained on a dataset of dog and cat images. The trained model is then deployed using MLflow and can be used to make predictions on new images.
 
 
@@ -10,14 +9,13 @@ This project uses MLflow to train and deploy a machine learning model that can c
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 
-Step 1 - Create a repository by using template repository
 
-Step 2 - Create a conda environment
+Step 1 - Create a conda environment
 ```bash
 conda create --prefix ./env python=3.7 -y
 ```
 
-Step 3 - Activate the conda environment
+Step 2 - Activate the conda environment
 ```bash
 conda activate ./env
 ```
@@ -27,12 +25,12 @@ conda activate ./env
 source activate ./env
 ```
 
-Step 4 - Make requireed files and directories
+Step 3 - Make requireed files and directories
 ```bash
 python template.py
 ```
 
-Step 5 - Make setup.py then install it
+Step 4 - Make setup.py then install it
 ```bash
 python setup.py install
 ```

@@ -4,13 +4,12 @@ with open("README.md", "r", encoding="utf-8") as f:
     long_description = f.read()
 
 ## edit below variables as per your requirements -
-SHORT_DESCRIPTION = "Write a short description of the project"
+SHORT_DESCRIPTION = "This project uses MLflow to train and deploy a machine learning model that can classify images of dogs and cats. The model is built using a convolutional neural network (CNN) and is trained on a dataset of dog and cat images. The trained model is then deployed using MLflow and can be used to make predictions on new images."
 REPO_NAME = "REPO_NAME"
 AUTHOR_USER_NAME = "vaasu2002"
-SRC_REPO = "learning"
+SRC_REPO = "src"
 AUTHOR_EMAIL = "vaasu.bisht2021@vitbhopal.ac.in"
 LIST_OF_REQUIREMENTS = []
-
 
 setup(
     name=SRC_REPO,
