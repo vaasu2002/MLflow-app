@@ -43,6 +43,7 @@ def main(config_path):
     else:
         logging.info(f"data already extracted")
     # validating data
+    print(unzip_data_dir)
     validate_image(config)
 
 if __name__ == '__main__':
