@@ -5,6 +5,5 @@ pandas
 numpy
 PyYAML
 Pillow
-tensorflow==2.10.0
 ### local packages -
 -e . # << uncomment this to install from setup.py
