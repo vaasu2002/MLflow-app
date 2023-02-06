@@ -2,7 +2,9 @@
 tqdm
 pandas
 numpy
+ipykernel
 PyYAML
+ipython
 Pillow
 ### local packages -
 -e . # << uncomment this to install from setup.py
