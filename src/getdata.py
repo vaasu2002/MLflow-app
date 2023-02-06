@@ -8,17 +8,18 @@ from src.utils.data_mgmt import validate_image
 import random
 import urllib.request as req
 
-STAGE = "GET_DATA" ## <<< change stage name 
+STAGE = "DATA_INGESTION"
 
-# logging.basicConfig(
-#     filename=os.path.join("logs", 'running_logs.log'), 
-#     level=logging.INFO, 
-#     format="[%(asctime)s: %(levelname)s: %(module)s]: %(message)s"
-#     )
+os.makedirs("logs",exist_ok = True)
+logging.basicConfig(
+    filename=os.path.join("logs", 'running_logs.log'), 
+    level=logging.INFO, 
+    format="[%(asctime)s: %(levelname)s: %(module)s]: %(message)s"
+    )
 
+def main(config_path:str):
 
-def main(config_path):
-    ## read config files
+    # Reading configration files
     config = read_yaml(config_path)
     URL = config["data"]["source_url"]
     local_dir = config["data"]["local_dir"]
@@ -29,34 +30,41 @@ def main(config_path):
 
     
     if not os.path.isfile(data_file_path):
-        print("downloading started...")
+
+        logging.info("downloading started...")
         filename, headers = req.urlretrieve(URL, data_file_path)
-        print(f"filename:{filename} created with info \n{headers}")
+        logging.info(f"filename:{filename} created with info \n{headers}")
+
     else:
-        print(f"filename:{data_file} already present")
+
+        logging.info(f"filename:{data_file} already present")
 
     # Unzip ops
     unzip_data_dir = config["data"]["unzip_data_dir"]
+
     if not os.path.exists(unzip_data_dir):
         create_directories([unzip_data_dir])
-        unzip_file(source=data_file_path, dest=unzip_data_dir)
+        unzip_file(source=data_file_path, dest=unzip_data_dir) # unziping the data
+
     else:
-        logging.info(f"data already extracted")
-    # validating data
-    print(unzip_data_dir)
+
+        logging.info(f"Data already extracted")
+
+    # Validating data
     validate_image(config)
 
 if __name__ == '__main__':
     args = argparse.ArgumentParser()
     args.add_argument("--config", "-c", default="config/config.yaml")
     parsed_args = args.parse_args()
-    # print(parsed_args.config)
-    # print(parsed_args)
+
     try:
-        logging.info("\n********************")
-        logging.info(f">>>>> stage {STAGE} started <<<<<")
+
+        logging.info("\n")
+        logging.info(f"Starting the {STAGE} stage!")
         main(config_path=parsed_args.config)
-        logging.info(f">>>>> stage {STAGE} completed!<<<<<\n")
+        logging.info(f"{STAGE} stage completed!")
+
     except Exception as e:
         logging.exception(e)
         raise 

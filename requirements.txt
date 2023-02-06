@@ -1,6 +1,5 @@
 ### dependency to be installed
 tqdm
-mlflow[extras]
 pandas
 numpy
 PyYAML
