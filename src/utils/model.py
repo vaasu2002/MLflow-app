@@ -7,4 +7,4 @@ def log_model_summary(model):
             print_fn=lambda x: stream.write(f"{x}\n")
         )
         summary_str = stream.getvalue()
-    return 
+    return summary_str

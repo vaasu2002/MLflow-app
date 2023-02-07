@@ -21,35 +21,16 @@ logging.basicConfig(
 
 
 def main(config_path):
-    IMG_SIZE = [180,180]
-    BATCH_SIZE = 32
-    # read config files
+    # Reading config files
     config = read_yaml(config_path)
 
     params = config["params"]
 
-    logging.info("layers defined")
+    logging.info("Defining layer")
 
-    DATA_DIR = "data/unzip/PetImages"
-
-
-    train_ds = tf.keras.preprocessing.image_dataset_from_directory(
-    DATA_DIR,
-    validation_split=0.2,
-    subset="training",
-    seed=42,
-    image_size=IMG_SIZE,
-    batch_size=BATCH_SIZE
-    )
-
-    val_ds = tf.keras.preprocessing.image_dataset_from_directory(
-        DATA_DIR,
-        validation_split=0.2,
-        subset="validation",
-        seed=42,
-        image_size=IMG_SIZE,
-        batch_size=BATCH_SIZE
-    )
+    DATA_DIR = os.path.join(
+    config["data"]["unzip_data_dir"],
+    config["data"]["parent_data_dir"])
 
     LAYERS = [
     tf.keras.layers.Input(shape=tuple(params["img_shape"])),
@@ -62,35 +43,48 @@ def main(config_path):
     tf.keras.layers.Dense(2, activation="softmax")
     ]
 
-    classifier = tf.keras.Sequential(LAYERS)
+    model = tf.keras.Sequential(LAYERS)
 
-    logging.info(classifier.summary())
-
-    train_ds = train_ds.prefetch(buffer_size=32)
-    val_ds = val_ds.prefetch(buffer_size=32)
-
-    # logging.info(f"base model summary:\n{log_model_summary(classifier)}")
-
-    classifier.compile(
+    model.compile(
     optimizer=tf.keras.optimizers.Adam(params["lr"]),
     loss=params["loss"],
     metrics=params["metrics"]
     )
 
-    EPOCHS = 1
-    history  = classifier.fit(train_ds, epochs=EPOCHS, validation_data = val_ds)
 
-    logging.info(history.history)
-    
+    logging.info(f"Model summary:- {log_model_summary(model)}")
+
+
+    path_to_model = os.path.join(
+        config["data"]["local_dir"],
+        config["data"]["model_dir"], 
+        config["data"]["init_model_file"])
+
+    logging.info(f"load the base model from {path_to_model}")
+
+
+    # logging.info(f"base model summary:\n{log_model_summary(classifier)}")
+
+    model.compile(
+    optimizer=tf.keras.optimizers.Adam(params["lr"]),
+    loss=params["loss"],
+    metrics=params["metrics"]
+    )
+
     path_to_model_dir = os.path.join(
         config["data"]["local_dir"],
         config["data"]["model_dir"])
+
     create_directories([path_to_model_dir])
+
     path_to_model = os.path.join(
         path_to_model_dir, 
         config["data"]["init_model_file"])
-    classifier.save(path_to_model)
-    logging.info(f"model is saved at : {path_to_model}")
+
+    model.save(path_to_model)
+    
+    logging.info(f"Model is saved at : {path_to_model}")
+
 
 if __name__ == '__main__':
     args = argparse.ArgumentParser()
