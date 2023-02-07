@@ -5,11 +5,14 @@ This project uses MLflow to train and deploy a machine learning model that can c
 
 # Description of components
 
-### 1) Data Ingestion: `getdata.py` is the script which performs data ingestion. The script is designed to download a dataset from a given URL to the local machine if it's not already present and then unzip it. The script also performs a validation of the data to check if the data is properly extracted.
+### 1) Data Ingestion: 
+`getdata.py` is the script which performs data ingestion. The script is designed to download a dataset from a given URL to the local machine if it's not already present and then unzip it. The script also performs a validation of the data to check if the data is properly extracted.
 
-### 2) Base Model Creation: `base_model.py` is the script which performs the base model creation. It uses the Tensorflow library to create a simple convolutional neural network (CNN) for image classification. The script defines the architecture of the model, compiles it and logs the model summary.
+### 2) Base Model Creation: 
+`base_model.py` is the script which performs the base model creation. It uses the Tensorflow library to create a simple convolutional neural network (CNN) for image classification. The script defines the architecture of the model, compiles it and logs the model summary.
 
-### 3) Model Training: `model_training.py` is the script which trains the base model created in the previous step. The script uses the training data, loss function, optimizer, and other parameters defined in the configuration file to train the model. The script logs the progress of the training process and saves the final model after the training is completed.
+### 3) Model Training: 
+`model_training.py` is the script which trains the base model created in the previous step. The script uses the training data, loss function, optimizer, and other parameters defined in the configuration file to train the model. The script logs the progress of the training process and saves the final model after the training is completed.
 
 # Steps
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
